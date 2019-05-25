@@ -1,0 +1,40 @@
+# Default values for node.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  repository: icij/datashare
+  tag: 1.64.5
+  pullPolicy: Always
+service:
+  name: node
+  type: ClusterIP
+  externalPort: 8080
+  internalPort: 8080
+resources:
+  limits:
+    cpu: 100m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 1Gi
+ingress:
+  enabled: true
+basedomain: apps.fivetwentyseven.com
+env:
+  DS_JAVA_OPTS: -Xmx1024m
+  DS_DOCKER_MOUNTED_DATA_DIR: /mounted/volume/tk
+
+elasticsearch:
+  cluster:
+    name: datashare
+    env:
+      ES_JAVA_OPTS: -Xmx1024m
+      http.host: "0.0.0.0"
+      transport.host: "0.0.0.0"
+      discovery.type: "single-node"
+      discovery.zen.minimum_master_nodes: "1"
+      xpack.license.self_generated.type: "basic"
+      http.cors.enabled: "true"
+      http.cors.allow-origin: "*"
+      http.cors.allow-methods: "OPTIONS, HEAD, GET, POST, PUT, DELETE"

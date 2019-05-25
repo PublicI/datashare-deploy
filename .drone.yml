@@ -1,0 +1,34 @@
+pipeline:
+  helm_dry_run:
+    image: publicintegrity/drone-helm
+    chart: ./charts/website-archive
+    release: archive
+    values: image.repository=icij/datashare,image.tag=1.64.5
+    prefix: 
+    dry_run: true
+    namespace: archive
+    secrets: [ api_server, kubernetes_token ]
+    skip_tls_verify: true
+    when:
+      event: [push, tag]
+
+  helm_deploy:
+    image: publicintegrity/drone-helm
+    chart: ./charts/website-archive
+    release: archive
+    environment:
+      - IMAGE_TAG=${DRONE_COMMIT_SHA:0:12}
+    values: image.repository=publicintegrity/website-archive,image.tag=$${IMAGE_TAG}
+    prefix: 
+    namespace: archive
+    secrets: [ api_server, kubernetes_token ]
+    skip_tls_verify: true
+    when:
+      event: deployment
+      environment: production
+
+  slack:
+    image: plugins/slack
+    secrets: [ slack_webhook ]
+    when:
+      status: [ success, failure ]

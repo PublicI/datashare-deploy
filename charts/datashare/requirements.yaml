@@ -1,0 +1,7 @@
+dependencies:
+- name: redis
+  version: "^8.0.1"
+  repository: "https://kubernetes-charts.storage.googleapis.com/"
+- name: elasticsearch
+  version: "^1.27.2"
+  repository: "https://kubernetes-charts.storage.googleapis.com/"
