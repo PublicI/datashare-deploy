@@ -5,7 +5,7 @@ replicaCount: 1
 image:
   repository: icij/datashare
   tag: 1.64.5
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
 service:
   name: node
   type: ClusterIP
@@ -17,7 +17,7 @@ resources:
     memory: 1Gi
   requests:
     cpu: 100m
-    memory: 1Gi
+    memory: 512Mi
 ingress:
   enabled: true
 basedomain: apps.fivetwentyseven.com
@@ -28,13 +28,31 @@ env:
 elasticsearch:
   cluster:
     name: datashare
+    xpackEnable: true
     env:
-      ES_JAVA_OPTS: -Xmx1024m
+      MINIMUM_MASTER_NODES: 1
       http.host: "0.0.0.0"
       transport.host: "0.0.0.0"
       discovery.type: "single-node"
-      discovery.zen.minimum_master_nodes: "1"
       xpack.license.self_generated.type: "basic"
       http.cors.enabled: "true"
       http.cors.allow-origin: "*"
       http.cors.allow-methods: "OPTIONS, HEAD, GET, POST, PUT, DELETE"
+  data:
+    replicas: 0
+  client:
+    replicas: 0
+  master:
+    replicas: 1
+    heapSize: "1024m"
+    resources:
+      limits:
+        cpu: "1"
+        memory: "1024Mi"
+      requests:
+        cpu: "100m"
+        memory: "1024Mi"
+
+redis:
+  cluster:
+    enabled: false
