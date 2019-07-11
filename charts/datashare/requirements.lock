@@ -1,9 +1,9 @@
 dependencies:
 - name: redis
   repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 8.0.1
+  version: 8.1.0
 - name: elasticsearch
-  repository: https://kubernetes-charts.storage.googleapis.com/
-  version: 1.27.2
-digest: sha256:7040132ea41bb9f87913ca12c33267d5c8eaa47f0d522d4b4fea1a365fe18f1f
-generated: 2019-05-25T12:10:19.063359-04:00
+  repository: https://helm.elastic.co
+  version: 7.2.0
+digest: sha256:6d15c8148155a8933369775150cabcf202e0df1b3eacb0853f9fd403e1c2e4fb
+generated: 2019-07-11T11:13:20.353159-04:00

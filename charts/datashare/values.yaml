@@ -23,36 +23,16 @@ ingress:
 basedomain: apps.fivetwentyseven.com
 env:
   DS_JAVA_OPTS: -Xmx1024m
-  DS_DOCKER_MOUNTED_DATA_DIR: /mounted/volume/tk
+persistence:
+  accessMode: ReadWriteOnce
+  size: 20Gi
 
 elasticsearch:
-  cluster:
-    name: datashare
-    xpackEnable: true
-    env:
-      MINIMUM_MASTER_NODES: 1
-      http.host: "0.0.0.0"
-      transport.host: "0.0.0.0"
-      discovery.type: "single-node"
-      xpack.license.self_generated.type: "basic"
-      http.cors.enabled: "true"
-      http.cors.allow-origin: "*"
-      http.cors.allow-methods: "OPTIONS, HEAD, GET, POST, PUT, DELETE"
-  data:
-    replicas: 0
-  client:
-    replicas: 0
-  master:
-    replicas: 1
-    heapSize: "1024m"
-    resources:
-      limits:
-        cpu: "1"
-        memory: "1024Mi"
-      requests:
-        cpu: "100m"
-        memory: "1024Mi"
+  clusterName: datashare
+  imageTag: 6.3.0
+  esMajorVersion: 6
 
 redis:
+  usePassword: false
   cluster:
     enabled: false

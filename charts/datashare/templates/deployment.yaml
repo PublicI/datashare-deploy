@@ -15,16 +15,26 @@ spec:
         draft: {{ default "draft-app" .Values.draft }}
         app: {{ template "fullname" . }}
     spec:
+      volumes:
+      - name: storage-volume
+        persistentVolumeClaim:
+          claimName: {{ template "fullname" . }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
+        args: ["--elasticsearchAddress","http://datashare-master.datashare:9200","--redisAddress","redis://datashare-redis-master.datashare:6379","--messageBusAddress","datashare-redis-master.datashare"]
+        volumeMounts:
+          - mountPath: "/home/datashare/data"
+            name: storage-volume
         env:
           {{- range $key, $value := .Values.env }}
             - name: "{{ $key }}"
               value: "{{ $value }}"
           {{- end }}
+            - name: DS_DOCKER_MOUNTED_DATA_DIR
+              value: /data
         resources:
 {{ toYaml .Values.resources | indent 12 }}
