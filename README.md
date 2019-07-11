@@ -1,5 +1,7 @@
 # datashare-deploy
 
+[ICIJ Datashare](https://datashare.icij.org/) lets you index and search documents on your computer, and this Helm chart extends that to your very own cluster with Kubernetes and [Helm](https://helm.sh/).
+
 ## Install
 ```sh
 git clone https://github.com/PublicI/datashare-deploy.git
