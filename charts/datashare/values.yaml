@@ -4,7 +4,7 @@
 replicaCount: 1
 image:
   repository: icij/datashare
-  tag: 1.64.5
+  tag: 2.0.0
   pullPolicy: IfNotPresent
 service:
   name: node
