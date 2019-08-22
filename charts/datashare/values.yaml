@@ -26,6 +26,10 @@ env:
 persistence:
   accessMode: ReadWriteOnce
   size: 20Gi
+elasticsearchAddress: "http://datashare-master.datashare:9200"
+redisAddress: "redis://datashare-redis-master.datashare:6379"
+messageBusAddress: "datashare-redis-master.datashare"
+dataSourceUrl: "jdbc:postgresql://postgresql/test?user=test&password=test"
 
 elasticsearch:
   clusterName: datashare

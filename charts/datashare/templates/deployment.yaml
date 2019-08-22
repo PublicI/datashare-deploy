@@ -25,7 +25,15 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
-        args: ["--elasticsearchAddress","http://datashare-master.datashare:9200","--redisAddress","redis://datashare-redis-master.datashare:6379","--messageBusAddress","datashare-redis-master.datashare"]
+        args: 
+          - "--elasticsearchAddress"
+          - "{{ .Values.elasticsearchAddress }}"
+          - "--redisAddress"
+          - "{{ .Values.redisAddress }}"
+          - "--messageBusAddress"
+          - "{{ .Values.messageBusAddress }}"
+          - "--dataSourceUrl"
+          - "{{ .Values.dataSourceUrl }}"
         volumeMounts:
           - mountPath: "/home/datashare/data"
             name: storage-volume
