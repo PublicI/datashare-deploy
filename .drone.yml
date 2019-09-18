@@ -4,7 +4,7 @@ pipeline:
     chart: ./charts/datashare
     release: datashare
     secrets: [ data_source_url ]
-    values: image.repository=icij/datashare,image.tag=4.5.2,dataSourceUrl=$${DATA_SOURCE_URL}
+    values: image.repository=icij/datashare,image.tag=4.9.0,dataSourceUrl=$${DATA_SOURCE_URL}
     prefix: 
     dry_run: true
     namespace: datashare
@@ -18,7 +18,7 @@ pipeline:
     chart: ./charts/datashare
     release: datashare
     secrets: [ data_source_url ]
-    values: image.repository=icij/datashare,image.tag=4.5.2,dataSourceUrl=$${DATA_SOURCE_URL}
+    values: image.repository=icij/datashare,image.tag=4.9.0,dataSourceUrl=$${DATA_SOURCE_URL}
     prefix: 
     namespace: datashare
     secrets: [ api_server, kubernetes_token ]
